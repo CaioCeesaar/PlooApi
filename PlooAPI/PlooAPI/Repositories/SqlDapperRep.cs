@@ -5,11 +5,11 @@ using PlooAPI.Business;
 
 namespace PlooAPI.Repositories;
 
-public class SqlRep
+public class SqlDapperRep
 {
     private readonly SqlConnection _connection;
     
-    public SqlRep(string connectionString)
+    public SqlDapperRep(string connectionString)
     {
         _connection = new SqlConnection(connectionString);
         Reconnect();

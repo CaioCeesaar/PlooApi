@@ -1,4 +1,4 @@
-﻿namespace PlooAPI.Entities;
+﻿namespace PlooAPI.Models;
 
 public class Endereco
 {

@@ -1,6 +1,14 @@
-﻿namespace PlooAPI.Controllers;
+﻿using Microsoft.AspNetCore.Mvc;
 
-public class UsuarioController
+namespace PlooAPI.Controllers;
+
+[Route("api/[controller]")]
+[ApiController]
+public class UsuarioController : ControllerBase
 {
+    public UsuarioController()
+    {
+        
+    }
     
 }
