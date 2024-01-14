@@ -1,15 +1,12 @@
 ﻿namespace PlooAPI.Models;
 
-public class Equipe : Entity
+public class Equipe 
 {
-    public Equipe(int id, DateTime dataCriacao, DateTime dataAtualizacao, string nome, ICollection<Usuario> usuarios) : base(id, dataCriacao, dataAtualizacao)
-    {
-        Nome = nome;
-        Usuarios = usuarios;
-    }
-    
+    public int Id { get; set; }
     public string Nome { get; set; }
-    
     public ICollection<Usuario> Usuarios { get; set; }
-
+    public DateTime DataCriacao { get; set; }
+    public DateTime DataAtualizacao { get; set; }
+    public bool Ativo { get; set; }
 }
+

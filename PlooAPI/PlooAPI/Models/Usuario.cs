@@ -1,28 +1,8 @@
 ﻿namespace PlooAPI.Models;
 
-public class Usuario : Entity
+public class Usuario 
 {
-    public Usuario(int id, DateTime dataCriacao, DateTime dataAtualizacao, string nome, string email, DateTime dataNascimento, 
-        string numeroCasa, string cep, string logradouro, string complemento, string bairro, string localidade, string uf, 
-        string ibge, string gia, string ddd, string siafi, int perfilId, ICollection<Equipe>? equipes) : base(id, dataCriacao, dataAtualizacao)
-    {
-        Nome = nome;
-        Email = email;
-        DataNascimento = dataNascimento;
-        NumeroCasa = numeroCasa;
-        Cep = cep;
-        Logradouro = logradouro;
-        Complemento = complemento;
-        Bairro = bairro;
-        Localidade = localidade;
-        Uf = uf;
-        Ibge = ibge;
-        Gia = gia;
-        Ddd = ddd;
-        Siafi = siafi;
-        PerfilId = perfilId;
-        Equipes = equipes;
-    }
+    public int Id { get; set; }
     
     public string Nome { get; set; }
     
@@ -56,5 +36,10 @@ public class Usuario : Entity
     
     public ICollection<Equipe>? Equipes { get; set; }
     
+    public DateTime DataCriacao { get; set; }
+    
+    public DateTime DataAtualizacao { get; set; }
+    
+    public bool Ativo { get; set; }
 }
 

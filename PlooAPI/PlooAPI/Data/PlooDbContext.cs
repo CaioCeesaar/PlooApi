@@ -5,10 +5,27 @@ namespace PlooAPI.Data;
 
 public class PlooDbContext : DbContext
 {
+    public PlooDbContext(DbContextOptions<PlooDbContext> options) : base(options)
+    {
+    }
+    
     public DbSet<Usuario> Usuarios { get; set; }
+    public DbSet<Perfil> Perfis { get; set; }
+    public DbSet<Equipe> Equipes { get; set; }
 
-    // TODO: Adicionar outras entidades
-
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        if (!optionsBuilder.IsConfigured)
+        {
+            IConfigurationRoot config = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json")
+                .Build();
+            string? connString = config.GetConnectionString("ConnectionString");
+            optionsBuilder.UseSqlServer(connString);
+        }
+    }
+    
     public override int SaveChanges()
     {
         UpdateTimestamps();
@@ -25,17 +42,35 @@ public class PlooDbContext : DbContext
     {
         var entries = ChangeTracker
             .Entries()
-            .Where(e => e.Entity is Usuario && (
+            .Where(e => e.Entity is Usuario || e.Entity is Equipe || e.Entity is Perfil && (
                 e.State == EntityState.Added
                 || e.State == EntityState.Modified));
 
         foreach (var entityEntry in entries)
         {
-            ((Usuario)entityEntry.Entity).DataAtualizacao = DateTime.Now;
-
-            if (entityEntry.State == EntityState.Added)
+            switch (entityEntry.Entity)
             {
-                ((Usuario)entityEntry.Entity).DataCriacao = DateTime.Now;
+                case Usuario usuario:
+                    usuario.DataAtualizacao = DateTime.Now;
+                    if (entityEntry.State == EntityState.Added)
+                    {
+                        usuario.DataCriacao = DateTime.Now;
+                    }
+                    break;
+                case Equipe equipe:
+                    equipe.DataAtualizacao = DateTime.Now;
+                    if (entityEntry.State == EntityState.Added)
+                    {
+                        equipe.DataCriacao = DateTime.Now;
+                    }
+                    break;
+                case Perfil perfil:
+                    perfil.DataAtualizacao = DateTime.Now;
+                    if (entityEntry.State == EntityState.Added)
+                    {
+                        perfil.DataCriacao = DateTime.Now;
+                    }
+                    break;
             }
         }
     }

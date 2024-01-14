@@ -1,7 +1,6 @@
 ﻿using System.Data;
 using System.Data.SqlClient;
 using Dapper;
-using PlooAPI.Business;
 
 namespace PlooAPI.Repositories;
 
@@ -19,21 +18,6 @@ public class SqlDapperRep
     {
         Reconnect();
         return await _connection.QueryAsync<T>(select);
-    }
-
-    public async Task<Result> PostQueryAsync(string insert)
-    {
-        try
-        {
-            Reconnect();
-            var ins = await _connection.ExecuteAsync(insert);
-      
-            return new(true, "Ok");
-        }
-        catch (Exception ex)
-        {
-            return new(false, "Deu ruim");
-        }
     }
     
     private void Reconnect()

@@ -1,11 +1,10 @@
 ﻿namespace PlooAPI.Models;
 
-public class Perfil : Entity
+public class Perfil 
 {
-    public Perfil(int id, DateTime dataCriacao, DateTime dataAtualizacao, string nome) : base(id, dataCriacao, dataAtualizacao)
-    {
-        Nome = nome;
-    }
-    
+    public int Id { get; set; }
     public string Nome { get; set; }
+    public DateTime DataCriacao { get; set; }
+    public DateTime DataAtualizacao { get; set; }
+    public bool Ativo { get; set; }
 }
