@@ -19,19 +19,19 @@ public class SqlEfCoreRep
         {
             await _context.AddAsync(entity);
             await _context.SaveChangesAsync();
-            return new(true, "Ok");
+            return new(true, "Ok", 200);
         }
         catch (DbUpdateConcurrencyException ex)
         {
-            return new(false, $"Conflito de concorrencia detectado: {ex.Message}");
+            return new(false, $"Conflito de concorrencia detectado: {ex.Message}", 409);
         }
         catch (DbUpdateException ex)
         {
-            return new(false, $"Erro ao inserir no banco de dados: {ex.Message}");
+            return new(false, $"Erro ao inserir no banco de dados: {ex.Message}", 500);
         }
         catch (Exception ex)
         {
-            return new(false, $"Ocorreu um erro: {ex.Message}");
+            return new(false, $"Ocorreu um erro: {ex.Message}", 500);
         }
     }
     
@@ -41,23 +41,23 @@ public class SqlEfCoreRep
         {
             _context.Update(entity);
             await _context.SaveChangesAsync();
-            return new(true, "Ok");
+            return new(true, "Ok", 200);
         }
         catch (DbUpdateConcurrencyException ex)
         {
-            return new(false, $"Conflito de concorrencia detectado: {ex.Message}");
+            return new(false, $"Conflito de concorrencia detectado: {ex.Message}", 409);
         }
         catch (DbUpdateException ex)
         {
-            return new(false, $"Erro ao atualizar o banco de dados: {ex.Message}");
+            return new(false, $"Erro ao atualizar o banco de dados: {ex.Message}", 500);
         }
         catch (InvalidOperationException ex)
         {
-            return new(false, $"Operação inválida: {ex.Message}");
+            return new(false, $"Operação inválida: {ex.Message}", 400);
         }
         catch (Exception ex)
         {
-            return new(false, $"Ocorreu um erro: {ex.Message}");
+            return new(false, $"Ocorreu um erro: {ex.Message}", 500);
         }
     }
 
@@ -65,25 +65,26 @@ public class SqlEfCoreRep
     {
         try
         {
-            _context.Remove(entity);
+            
+            
             await _context.SaveChangesAsync();
-            return new(true, "Ok");
+            return new Result(true, "Ok", 200);
         }
         catch (DbUpdateConcurrencyException ex)
         {
-            return new(false, $"Conflito de concorrencia detectado: {ex.Message}");
+            return new(false, $"Conflito de concorrencia detectado: {ex.Message}", 409);
         }
         catch (DbUpdateException ex)
         {
-            return new(false, $"Erro ao deletar do banco de dados: {ex.Message}");
+            return new(false, $"Erro ao deletar do banco de dados: {ex.Message}", 500);
         }
         catch (InvalidOperationException ex)
         {
-            return new(false, $"Operação inválida: {ex.Message}");
+            return new(false, $"Operação inválida: {ex.Message}", 400);
         }
         catch (Exception ex)
         {
-            return new(false, $"Ocorreu um erro: {ex.Message}");
+            return new(false, $"Ocorreu um erro: {ex.Message}", 500);
         }
     }
 }

@@ -5,15 +5,24 @@ namespace PlooAPI.Controllers;
 
 public class PlooApiControllerBase : ControllerBase
 {
-    protected BusinessClass BusinesssClass = new();
+    protected BusinessClass _businessClass;
     
     protected IActionResult ConvertResultToHttpResult(Result result)
     {
-        if (result.Sucess)
+        switch (result.StatusCode)
         {
-            return Ok(result.Message);
+            case 200:
+                return Ok(result.Message);
+            case 201:
+                return Created("", result.Message);
+            case 204:
+                return NoContent();
+            case 400:
+                return BadRequest(result.Message);
+            case 404:
+                return NotFound(result.Message);
+            default:
+                return StatusCode(result.StatusCode, result.Message);
         }
-        
-        return BadRequest(result.Message);
     }
 }

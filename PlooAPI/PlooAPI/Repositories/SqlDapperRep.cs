@@ -10,7 +10,7 @@ public class SqlDapperRep
     
     public SqlDapperRep(string connectionString)
     {
-        _connection = new SqlConnection(connectionString);
+        _connection = new(connectionString);
         Reconnect();
     }
     
@@ -18,6 +18,12 @@ public class SqlDapperRep
     {
         Reconnect();
         return await _connection.QueryAsync<T>(select);
+    }
+    
+    public async Task<IEnumerable<T>> GetQueryByIdAsync<T> (string select, DynamicParameters? parameters) where T : class
+    {
+        Reconnect();
+        return await _connection.QueryAsync<T>(select, parameters);
     }
     
     private void Reconnect()
