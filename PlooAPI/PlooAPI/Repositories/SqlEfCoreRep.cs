@@ -19,7 +19,7 @@ public class SqlEfCoreRep
         {
             await _context.AddAsync(entity);
             await _context.SaveChangesAsync();
-            return new(true, "Ok", 200);
+            return new(true, "Item criado com sucesso", 200);
         }
         catch (DbUpdateConcurrencyException ex)
         {
@@ -41,7 +41,7 @@ public class SqlEfCoreRep
         {
             _context.Update(entity);
             await _context.SaveChangesAsync();
-            return new(true, "Ok", 200);
+            return new(true, "Item atualizado com sucesso", 200);
         }
         catch (DbUpdateConcurrencyException ex)
         {
@@ -65,10 +65,9 @@ public class SqlEfCoreRep
     {
         try
         {
-            
-            
+            _context.Update(entity);
             await _context.SaveChangesAsync();
-            return new Result(true, "Ok", 200);
+            return new Result(true, "Item deletado com sucesso", 200);
         }
         catch (DbUpdateConcurrencyException ex)
         {

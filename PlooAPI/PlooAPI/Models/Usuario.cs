@@ -43,3 +43,21 @@ public class Usuario
     public bool Ativo { get; set; }
 }
 
+public class UsuarioModel
+{
+    public string Nome { get; set; }
+    
+    public string Email { get; set; }
+    
+    public DateTime DataNascimento { get; set; }
+    
+    public string NumeroCasa { get; set; }
+    
+    public string Complemento { get; set; }
+    
+    public string Cep { get; set; }
+    
+    public int PerfilId { get; set; }
+    
+    public ICollection<EquipeModel>? Equipes { get; set; }
+}
