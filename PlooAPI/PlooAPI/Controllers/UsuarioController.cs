@@ -9,6 +9,7 @@ namespace PlooAPI.Controllers;
 [ApiController]
 public class UsuarioController(IConfiguration configuration, IMapper mapper, PlooDbContext context) : PlooApiControllerBase(configuration, mapper, context)
 {
+    
     [HttpGet]
     public async Task<IActionResult> GetUsuariosAsync([FromQuery(Name = "id")] int? id)
     {
@@ -19,12 +20,18 @@ public class UsuarioController(IConfiguration configuration, IMapper mapper, Plo
     public async Task<IActionResult> PostUsuarioAsync(UsuarioModel usuarioModel)
     {
         return ConvertResultToHttpResult(await _businessClass.PostUsuarioAsync(usuarioModel));
-    } 
-    
-    [HttpPatch]
-    public async Task<IActionResult> PatchUsuarioAsync(UsuarioModel usuarioModel)
+    }
+
+    [HttpPatch("{id}")]
+    public async Task<IActionResult> PatchUsuarioAsync([FromQuery] int id,UsuarioModel usuarioModel)
     {
-        return ConvertResultToHttpResult(await _businessClass.PatchUsuarioAsync(usuarioModel));
+        return ConvertResultToHttpResult(await _businessClass.PatchUsuarioAsync(id, usuarioModel));
+    }
+    
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteUsuarioAsync([FromQuery] int id)
+    {
+        return ConvertResultToHttpResult(await _businessClass.DeleteUsuarioAsync(id));
     }
     
 }

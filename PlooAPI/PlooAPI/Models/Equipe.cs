@@ -13,5 +13,6 @@ public class Equipe
 public class EquipeModel
 {
     public string Nome { get; set; }
+    public ICollection<Usuario>? Usuarios { get; set; }
 }
 

@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using PlooAPI.Business;
 using PlooAPI.Data;
 using PlooAPI.Models;
 
@@ -12,16 +11,27 @@ public class PerfilController(IConfiguration configuration, IMapper mapper, Ploo
 {
     
     [HttpGet]
-    public async Task<IEnumerable<Perfil>> GetPerfisAsync([FromQuery(Name = "id")] int? id)
+    public async Task<IActionResult> GetPerfisAsync([FromQuery(Name = "id")] int? id)
     {
-        var getPerfil = await _businessClass.GetPerfisAsync(id);
-        return getPerfil;
+        return ConvertResultToHttpResult(await _businessClass.GetPerfisAsync(id));
     }
     
     [HttpPost]
-    public async Task<Result> PostPerfilAsync(PerfilModel perfilModel)
+    public async Task<IActionResult> PostPerfilAsync(PerfilModel perfilModel)
     {
-        await _businessClass.PostPerfilAsync(perfilModel);
-        return new(true, "Perfil inserido com sucesso", 201);
+        return ConvertResultToHttpResult(await _businessClass.PostPerfilAsync(perfilModel));
     }
+    
+    [HttpPatch("{id}")]
+    public async Task<IActionResult> PatchPerfilAsync([FromQuery] int id,PerfilModel perfilModel)
+    {
+        return ConvertResultToHttpResult(await _businessClass.PatchPerfilAsync(id, perfilModel));
+    }
+    
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeletePerfilAsync([FromQuery] int id)
+    {
+        return ConvertResultToHttpResult(await _businessClass.DeletePerfilAsync(id));
+    }
+    
 }

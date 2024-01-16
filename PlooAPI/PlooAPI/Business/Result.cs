@@ -4,12 +4,12 @@ public class Result
 {
     public Result(bool success, string message, int statusCode)
     {
-        Sucess = success;
+        Success = success;
         Message = message;
         StatusCode = statusCode;
     }
     
-    public bool Sucess { get; set; }
+    public bool Success { get; set; }
     
     public string Message { get; set; }
     
