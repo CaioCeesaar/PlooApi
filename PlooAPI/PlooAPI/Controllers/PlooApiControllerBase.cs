@@ -1,28 +1,31 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using PlooAPI.Business;
+using PlooAPI.Data;
 
 namespace PlooAPI.Controllers;
 
 public class PlooApiControllerBase : ControllerBase
 {
+
     protected BusinessClass _businessClass;
-    
+
+    public PlooApiControllerBase(IConfiguration configuration, IMapper mapper, PlooDbContext context)
+    {
+        string connectionString = configuration.GetConnectionString("DefaultConnection");
+        _businessClass = new(context, connectionString, mapper);
+    }
+
     protected IActionResult ConvertResultToHttpResult(Result result)
     {
-        switch (result.StatusCode)
+        return result.StatusCode switch
         {
-            case 200:
-                return Ok(result.Message);
-            case 201:
-                return Created("", result.Message);
-            case 204:
-                return NoContent();
-            case 400:
-                return BadRequest(result.Message);
-            case 404:
-                return NotFound(result.Message);
-            default:
-                return StatusCode(result.StatusCode, result.Message);
-        }
+            200 => Ok(result.Message),
+            201 => Created("", result.Message),
+            204 => NoContent(),
+            400 => BadRequest(result.Message),
+            404 => NotFound(result.Message),
+            _ => StatusCode(result.StatusCode, result.Message),
+        };
     }
 }

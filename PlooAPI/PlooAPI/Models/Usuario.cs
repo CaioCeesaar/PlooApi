@@ -1,9 +1,12 @@
-﻿namespace PlooAPI.Models;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace PlooAPI.Models;
 
 public class Usuario 
 {
     public int Id { get; set; }
-    
+
+    [Column("UsuarioNome")]
     public string Nome { get; set; }
     
     public string Email { get; set; }

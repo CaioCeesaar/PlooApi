@@ -8,13 +8,8 @@ namespace PlooAPI.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class PerfilController : PlooApiControllerBase
+public class PerfilController(IConfiguration configuration, IMapper mapper, PlooDbContext context) : PlooApiControllerBase(configuration, mapper, context)
 {
-    public PerfilController(IConfiguration configuration, IMapper mapper, PlooDbContext context)
-    {
-        var connectionString = configuration.GetConnectionString("DefaultConnection")!;
-        _businessClass = new BusinessClass(context, connectionString, mapper);
-    }
     
     [HttpGet]
     public async Task<IEnumerable<Perfil>> GetPerfisAsync([FromQuery(Name = "id")] int? id)

@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using PlooAPI.Business;
 using PlooAPI.Data;
 using PlooAPI.Models;
 
@@ -8,26 +7,24 @@ namespace PlooAPI.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class UsuarioController : PlooApiControllerBase
+public class UsuarioController(IConfiguration configuration, IMapper mapper, PlooDbContext context) : PlooApiControllerBase(configuration, mapper, context)
 {
-    public UsuarioController(IConfiguration configuration, IMapper mapper, PlooDbContext context)
-    {
-        var connectionString = configuration.GetConnectionString("DefaultConnection")!;
-        _businessClass = new BusinessClass(context, connectionString, mapper);
-    }
-    
     [HttpGet]
-    public async Task<IEnumerable<Usuario>> GetUsuariosAsync([FromQuery(Name = "id")] int? id)
+    public async Task<IActionResult> GetUsuariosAsync([FromQuery(Name = "id")] int? id)
     {
-        var getUsuario = await _businessClass.GetUsuariosAsync(id);
-        return getUsuario;
+        return ConvertResultToHttpResult(await _businessClass.GetUsuariosAsync(id));
     }
 
     [HttpPost]
-    public async Task<Result> PostUsuarioAsync(UsuarioModel usuarioModel)
+    public async Task<IActionResult> PostUsuarioAsync(UsuarioModel usuarioModel)
     {
-        await _businessClass.PostUsuarioAsync(usuarioModel);
-        return new(true, "Usuario inserido com sucesso", 201);
+        return ConvertResultToHttpResult(await _businessClass.PostUsuarioAsync(usuarioModel));
     } 
+    
+    [HttpPatch]
+    public async Task<IActionResult> PatchUsuarioAsync(UsuarioModel usuarioModel)
+    {
+        return ConvertResultToHttpResult(await _businessClass.PatchUsuarioAsync(usuarioModel));
+    }
     
 }

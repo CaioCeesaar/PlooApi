@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using PlooAPI.Configuration;
 using PlooAPI.Data;
 
 
@@ -10,7 +11,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.AddAutoMapper(typeof(AutoMapperConfig));
 
 builder.Services.AddDbContext<PlooDbContext>(options =>
 {
