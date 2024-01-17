@@ -202,6 +202,7 @@ public class BusinessClass(PlooDbContext context, string connectionString, IMapp
         }
         
         var perfil = _mapper.Map<Perfil>(perfilModel);
+
         return await _sqlEfCoreRep.PatchQueryAsync(perfil);
     }
     

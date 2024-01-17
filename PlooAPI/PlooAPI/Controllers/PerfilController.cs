@@ -22,13 +22,13 @@ public class PerfilController(IConfiguration configuration, IMapper mapper, Ploo
         return ConvertResultToHttpResult(await _businessClass.PostPerfilAsync(perfilModel));
     }
     
-    [HttpPatch("{id}")]
+    [HttpPatch]
     public async Task<IActionResult> PatchPerfilAsync([FromQuery] int id,PerfilModel perfilModel)
     {
         return ConvertResultToHttpResult(await _businessClass.PatchPerfilAsync(id, perfilModel));
     }
     
-    [HttpDelete("{id}")]
+    [HttpDelete]
     public async Task<IActionResult> DeletePerfilAsync([FromQuery] int id)
     {
         return ConvertResultToHttpResult(await _businessClass.DeletePerfilAsync(id));
