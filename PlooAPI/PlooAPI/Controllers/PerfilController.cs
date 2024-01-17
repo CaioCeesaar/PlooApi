@@ -23,7 +23,7 @@ public class PerfilController(IConfiguration configuration, IMapper mapper, Ploo
     }
     
     [HttpPatch]
-    public async Task<IActionResult> PatchPerfilAsync([FromQuery] int id,PerfilModel perfilModel)
+    public async Task<IActionResult> PatchPerfilAsync([FromQuery] int id,PerfilUpdateModel perfilModel)
     {
         return ConvertResultToHttpResult(await _businessClass.PatchPerfilAsync(id, perfilModel));
     }

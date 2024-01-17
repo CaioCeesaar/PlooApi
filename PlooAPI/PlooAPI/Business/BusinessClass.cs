@@ -18,7 +18,6 @@ public class BusinessClass(PlooDbContext context, string connectionString, IMapp
     {
         if (id.HasValue)
         {
-            
             var sql = "EXEC spListarUsuarioAtivoPerfilEquipePorId @id";
             var parameters = new DynamicParameters();
             parameters.Add("@id", id);
@@ -81,8 +80,13 @@ public class BusinessClass(PlooDbContext context, string connectionString, IMapp
         return new(false, "Cep não encontrado", 404);
     }
 
-    public async Task<Result> PatchUsuarioAsync(int id, UsuarioModel usuarioModel)
+    public async Task<Result> PatchUsuarioAsync(int id, UsuarioUpdateModel usuarioModel)
     {
+        if (id != usuarioModel.Id)
+        {
+            return new(false, "Id da rota diferente do body", 400);
+        }
+        
         if(!(await GetUsuariosAsync(id)).Success)
         {
             return new(false, "Usuário não encontrado", 404);
@@ -109,6 +113,8 @@ public class BusinessClass(PlooDbContext context, string connectionString, IMapp
         }
         
         var usuario = _mapper.Map<Usuario>(usuarioModel);
+        
+        usuario.Ativo = true;
         
         var endereco = await _apiRep.ConsultarCep(usuario.Cep);
         
@@ -189,8 +195,13 @@ public class BusinessClass(PlooDbContext context, string connectionString, IMapp
         return await _sqlEfCoreRep.PostQueryAsync(perfil);
     }
     
-    public async Task<Result> PatchPerfilAsync(int id, PerfilModel perfilModel)
+    public async Task<Result> PatchPerfilAsync(int id, PerfilUpdateModel perfilModel)
     {
+        if (id != perfilModel.Id)
+        {
+            return new(false, "Id da rota diferente do body", 400);
+        }
+        
         if(!(await GetPerfisAsync(id)).Success)
         {
             return new (false, "Perfil não encontrado", 404);
@@ -202,7 +213,7 @@ public class BusinessClass(PlooDbContext context, string connectionString, IMapp
         }
         
         var perfil = _mapper.Map<Perfil>(perfilModel);
-
+        perfil.Ativo = true;
         return await _sqlEfCoreRep.PatchQueryAsync(perfil);
     }
     
@@ -228,33 +239,7 @@ public class BusinessClass(PlooDbContext context, string connectionString, IMapp
                     return new Result(true, "Perfil excluído com sucesso", 200);
                 }
             }
-
-            
         }
         return new(false, "Erro ao excluir perfil", 500);
     }
-    
-    public async Task<Result> GetEquipesAsync(int? id)
-    {
-        if (id.HasValue)
-        {
-            var sql = "EXEC spListarEquipePorId @id";
-            var parameters = new DynamicParameters();
-            parameters.Add("@id", id);
-            var equipes = await _sqlDapperRep.GetQueryByIdAsync<Equipe>(sql, parameters);
-            var enumerable = equipes.ToList();
-            if (!enumerable.Any())
-            {
-                return new(false, "Equipe não encontrada", 404);
-            }
-            
-            return new(true, JsonSerializer.Serialize(enumerable.ToList()), 200);
-        }
-        
-        var sql2 = "EXEC spListarEquipes";
-        var equipe = await _sqlDapperRep.GetQueryAsync<Equipe>(sql2);
-        return new(true, JsonSerializer.Serialize(equipe.ToList()), 200);
-    }
-    
-    
 }

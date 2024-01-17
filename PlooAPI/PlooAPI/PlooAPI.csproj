@@ -31,6 +31,8 @@
       <Compile Remove="Repositories.cs" />
       <Compile Remove="Repository\**" />
       <Compile Remove="Models\Entity.cs" />
+      <Compile Remove="Models\EquipeUsuario.cs" />
+      <Compile Remove="Controllers\EquipeController.cs" />
     </ItemGroup>
 
     <ItemGroup>

@@ -11,7 +11,7 @@ public class PlooDbContext : DbContext
     
     public DbSet<Usuario> Usuarios { get; set; }
     public DbSet<Perfil> Perfis { get; set; }
-    public DbSet<Equipe> Equipes { get; set; }
+    // public DbSet<Equipe> Equipes { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -42,7 +42,7 @@ public class PlooDbContext : DbContext
     {
         var entries = ChangeTracker
             .Entries()
-            .Where(e => e.Entity is Usuario || e.Entity is Equipe || e.Entity is Perfil && (
+            .Where(e => e.Entity is Usuario || e.Entity is Perfil && (
                 e.State == EntityState.Added
                 || e.State == EntityState.Modified));
 
@@ -55,13 +55,6 @@ public class PlooDbContext : DbContext
                     if (entityEntry.State == EntityState.Added)
                     {
                         usuario.DataCriacao = DateTime.Now;
-                    }
-                    break;
-                case Equipe equipe:
-                    equipe.DataAtualizacao = DateTime.Now;
-                    if (entityEntry.State == EntityState.Added)
-                    {
-                        equipe.DataCriacao = DateTime.Now;
                     }
                     break;
                 case Perfil perfil:

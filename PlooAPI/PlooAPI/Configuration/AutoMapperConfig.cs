@@ -8,7 +8,8 @@ public class AutoMapperConfig : Profile
     public AutoMapperConfig()
     {
         CreateMap<Usuario, UsuarioModel>().ReverseMap();
+        CreateMap<Usuario, UsuarioUpdateModel>().ReverseMap();
         CreateMap<Perfil, PerfilModel>().ReverseMap();
-        CreateMap<Equipe, EquipeModel>().ReverseMap();
+        CreateMap<Perfil,PerfilUpdateModel>().ReverseMap();
     }
 }

@@ -22,13 +22,13 @@ public class UsuarioController(IConfiguration configuration, IMapper mapper, Plo
         return ConvertResultToHttpResult(await _businessClass.PostUsuarioAsync(usuarioModel));
     }
 
-    [HttpPatch("{id}")]
-    public async Task<IActionResult> PatchUsuarioAsync([FromQuery] int id,UsuarioModel usuarioModel)
+    [HttpPatch]
+    public async Task<IActionResult> PatchUsuarioAsync([FromQuery] int id,UsuarioUpdateModel usuarioModel)
     {
         return ConvertResultToHttpResult(await _businessClass.PatchUsuarioAsync(id, usuarioModel));
     }
     
-    [HttpDelete("{id}")]
+    [HttpDelete]
     public async Task<IActionResult> DeleteUsuarioAsync([FromQuery] int id)
     {
         return ConvertResultToHttpResult(await _businessClass.DeleteUsuarioAsync(id));

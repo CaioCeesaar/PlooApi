@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace PlooAPI.Models;
+﻿namespace PlooAPI.Models;
 
 public class Usuario 
 {
@@ -36,8 +34,6 @@ public class Usuario
     
     public int PerfilId { get; set; }
     
-    public ICollection<Equipe>? Equipes { get; set; }
-    
     public DateTime DataCriacao { get; set; }
     
     public DateTime DataAtualizacao { get; set; }
@@ -61,5 +57,24 @@ public class UsuarioModel
     
     public int PerfilId { get; set; }
     
-    public ICollection<EquipeModel>? Equipes { get; set; }
+}
+
+public class UsuarioUpdateModel
+{
+    public int Id { get; set; }
+    
+    public string Nome { get; set; }
+    
+    public string Email { get; set; }
+    
+    public DateTime DataNascimento { get; set; }
+    
+    public string NumeroCasa { get; set; }
+    
+    public string Complemento { get; set; }
+    
+    public string Cep { get; set; }
+    
+    public int PerfilId { get; set; }
+    
 }

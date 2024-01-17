@@ -1,5 +1,6 @@
 ﻿namespace PlooAPI.Models;
 
+/*
 public class Equipe 
 {
     public int Id { get; set; }
@@ -15,4 +16,5 @@ public class EquipeModel
     public string Nome { get; set; }
     public ICollection<Usuario>? Usuarios { get; set; }
 }
+*/
 

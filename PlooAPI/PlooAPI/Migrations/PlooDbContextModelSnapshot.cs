@@ -34,7 +34,7 @@ namespace PlooAPI.Migrations
 
                     b.HasIndex("UsuariosId");
 
-                    b.ToTable("EquipeUsuario");
+                    b.ToTable("EquipeUsuario", (string)null);
                 });
 
             modelBuilder.Entity("PlooAPI.Models.Equipe", b =>
@@ -60,7 +60,7 @@ namespace PlooAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Equipes");
+                    b.ToTable("Equipes", (string)null);
                 });
 
             modelBuilder.Entity("PlooAPI.Models.Perfil", b =>
@@ -86,7 +86,7 @@ namespace PlooAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Perfis");
+                    b.ToTable("Perfis", (string)null);
                 });
 
             modelBuilder.Entity("PlooAPI.Models.Usuario", b =>
@@ -166,7 +166,7 @@ namespace PlooAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Usuarios");
+                    b.ToTable("Usuarios", (string)null);
                 });
 
             modelBuilder.Entity("EquipeUsuario", b =>
