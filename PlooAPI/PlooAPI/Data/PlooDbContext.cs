@@ -21,7 +21,7 @@ public class PlooDbContext : DbContext
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json")
                 .Build();
-            string? connString = config.GetConnectionString("ConnectionString");
+            string? connString = config.GetConnectionString("DefaultConnection");
             optionsBuilder.UseSqlServer(connString);
         }
     }
