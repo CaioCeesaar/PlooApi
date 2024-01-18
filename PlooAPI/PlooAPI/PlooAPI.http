@@ -1,6 +1,0 @@
-@PlooAPI_HostAddress = http://localhost:5110
-
-GET {{PlooAPI_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
